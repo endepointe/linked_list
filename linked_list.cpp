@@ -6,6 +6,7 @@
  * 	list.
  * Input: a node class
  * Output: a linked list of nodes
+ * Sources: Geeks for Geeks for getting mergeSort working
  * *****************************************************************/
 
 #include "node.h"
@@ -23,7 +24,6 @@ using namespace std;
  * post: a list of size >= 0 exists
  * ***********************************************************************/
 Linked_List::Linked_List() {
-	cout << "linked list constructor called" << endl;
 	length = 0;
 	head = nullptr;
 }
@@ -51,7 +51,7 @@ int Linked_List::get_length() {
  * params: none
  * pre: a list >= 0 exists
  * post: the node count does not change
- * ***********************************************************************/	
+ * ***********************************************************************/
 void Linked_List::print() {
 
 	Node *curr = head;
@@ -73,7 +73,7 @@ void Linked_List::print() {
  * params: none
  * pre: a list >= 0 exists
  * post: the node count does not change
- * ***********************************************************************/	
+ * ***********************************************************************/
 void Linked_List::clear() {
 	
 	Node *next = head;
@@ -87,7 +87,7 @@ void Linked_List::clear() {
 		length--;
 	}
 
-	cout << "the length after clear is " << length << endl;	
+	head = nullptr;
 }
 	
 
@@ -98,7 +98,7 @@ void Linked_List::clear() {
  * params: integer to be inserted 
  * pre: a list >= 0 exists
  * post: the node count increased by one 
- * ***********************************************************************/	
+ * ***********************************************************************/
 unsigned int Linked_List::push_front(int v) {
 
 	Node *node = new Node();
@@ -121,7 +121,7 @@ unsigned int Linked_List::push_front(int v) {
  * params: value to be inserted 
  * pre: a list >= 0 exists
  * post: the node count increased by one 
- * ***********************************************************************/	
+ * ***********************************************************************/
 unsigned int Linked_List::push_back(int v) {
 
 	Node *node = new Node();
@@ -231,6 +231,11 @@ unsigned int Linked_List::insert(int v, unsigned int p) {
  *
  *	{ 2 }, { 6 }, { 4 }, { 9 }, { 1 }, { 5 }, { 8 }, { 7 }, { 3 }
  *
+ *	{ 2, 4, 6 } and { 1, 9 } and { 5, 8 } and { 3, 7 }
+ *
+ *	{ 1, 2, 4, 6, 9 } and { 3, 5, 7, 8 }
+ *
+ *	{ 1, 2, 3, 4, 5, 6, 7, 8, 9 }
  * ***********************************************************************/
 void Linked_List::sort_ascending() {			
 
@@ -239,9 +244,7 @@ void Linked_List::sort_ascending() {
 	cout << begin << endl;
 	
 	mergeSortAsc(begin);
-	
 }
-	
 
 
 /*************************************************************************
@@ -251,20 +254,6 @@ void Linked_List::sort_ascending() {
  * params: none
  * pre: a list >= 0 exists
  * post: value at i is > i + 1 until the end is reached 
- *
- * example: for a list of {2, 6, 4, 9, 1, 5, 8, 7, 3} 
- * 	split the list into two halves:
- *
- * 		the addy of begin and the addy of end of each list
- * 		will be used to continue the separation.
- *
- * 	{ 2, 6, 4, 9, 1 } and { 5, 8, 7, 3 }
- * 	
- * 	{ 2, 6, 4 } and { 9, 1 } and { 5, 8 } and { 7, 3 }	
- * 		
- * 	{ 2, 6 }, { 4 }, { 9 }, { 1 }, { 5 }, { 8 }, { 7 }, { 3 }
- *
- *	{ 2 }, { 6 }, { 4 }, { 9 }, { 1 }, { 5 }, { 8 }, { 7 }, { 3 }
  * ***********************************************************************/
 void Linked_List::sort_descending() {
 
@@ -439,28 +428,183 @@ Node * Linked_List::sortedMergeDesc(Node *a, Node *b) {
  * params: none
  * pre: a list >= 0 exists
  * post: the node count does not change, primes are counted and returned
+ * 	sieve of erathanos would not be ideal in this situation. dirty sol
+ *
  * ***********************************************************************/
 int Linked_List::we4r() {
-  Node *h = head;
-  int primes = 0;
 
-  while (h) {
-    if (h->val > 1) {
-      if ((h->val == 2) || (h->val == 3) || (h->val == 5) || (h->val == 7)) {
-        cout << "prime: " << h->val << endl;
-        primes++;	
-      }
+	Node *h = head;
+	bool prime;
+	int primes = 0;
 
-      if ((h->val % 2 != 0) && (h->val % 3 != 0) && (h->val % 5 != 0) && (h->val % 7 != 0)) {
-        cout << "prime: " << h->val << endl;
-        primes++;	
-      }
+	while (h) {
+/*
+		if ((h->val == 2) || (h->val == 3) || (h->val == 5) || (h->val == 7) || (h->val == 11)) {
+			primes++;
+		}
+*/
 
-      h = h->next;
-    } else {
-      h = h->next;
-    }
-  }
+		if (h->val > 1){
+			if ((h->val % 2 != 0) || (h->val % 3 != 0) || (h->val % 5 != 0) || (h->val % 7 != 0) || (h->val == 11)) {
+				prime = true;	
+			} else {
+				prime = false;
+			}
+		}
 
-  return primes;
+		if (prime == true) {
+			primes++;
+		}
+
+		h = h->next;
+
+		prime = false;
+	}
+
+	return primes;
+}
+
+/////////////////////////////////////////////////////////////////////
+//
+//  Functions for the driver file, asking the user for input
+//  
+/********************************************************************
+ * Function: readInt 
+ * Desc: gets a number as input to put into the linked list 
+ * Params: none
+ * Output: a number 
+ * *****************************************************************/
+int Linked_List::readInt() {
+
+	int num;
+
+	cout << "Please enter a number: ";
+
+	cin >> num;
+
+	cin.ignore(100, '\n');
+
+	while (cin.fail()) {
+		cin.clear();
+		cout << "Not a number, try again." << endl;
+		cout << "Enter a number: ";
+		cin.ignore(2, '\n');
+		cin >> num;
+	};
+
+	return num;
+}
+
+
+/********************************************************************
+ * Function: cont 
+ * Desc: gets a character as input and determines whether the user 
+ * 	would like to continue entering numbers
+ * Params: none
+ * Output: a bool whether the user wants to continue entering 
+ * 	numbers for the linked list 
+ * *****************************************************************/
+bool Linked_List::cont() {
+
+	bool flag = false;
+	char choice[2];
+
+	cin.get(choice, 2, '\n') ;
+
+	cin.ignore(100, '\n');
+	
+	while (flag == false) {
+		if (choice[0] == 110 || choice[0] == 121) {
+			flag = true;	
+			break;
+		}
+		cout << "Not a choice, try again (y or n): ";
+		cin.get(choice, 2, '\n');
+		cin.ignore(2, '\n');
+	};
+
+	if (choice[0] == 'y') {
+		return true;	
+	}
+
+	if (choice[0] == 'n') {
+		return false;
+	}
+
+}
+
+
+/********************************************************************
+ * Function: again 
+ * Desc: gets a character as input and determines whether the user 
+ * 	would like to exit the program
+ * Params: none
+ * Output: a bool whether the user wants to continue entering 
+ * 	numbers for the linked list 
+ * *****************************************************************/
+bool Linked_List::again() {
+
+	bool flag = false;
+	char choice[2];
+
+	cin.get(choice, 2, '\n') ;
+
+	cin.ignore(100, '\n');
+	
+	while (flag == false) {
+		if (choice[0] == 110 || choice[0] == 121) {
+			flag = true;	
+			break;
+		}
+		cout << "Not a choice, try again (y or n): ";
+		cin.get(choice, 2, '\n');
+		cin.ignore(2, '\n');
+	};
+
+	if (choice[0] == 'y') {
+		clear();
+		return true;	
+	}
+
+	if (choice[0] == 'n') {
+		return false;
+	}
+}
+
+
+/********************************************************************
+ * Function: chooseSort 
+ * Desc: gets a character as input and sorts and prints the list
+ * 	in either ascending or descending order 
+ * Params: linked_list pointer 
+ * Output: sorted list 
+ * *****************************************************************/
+void Linked_List::chooseSort() {
+
+	bool flag = false;
+	char choice[2];
+
+	cout << "Sort ascending or descending (a or d)? ";
+
+	cin.get(choice, 2, '\n') ;
+
+	cin.ignore(100, '\n');
+	
+	while (flag == false) {
+		if (choice[0] == 100 || choice[0] == 97) {
+			flag = true;	
+			break;
+		}
+		cout << "Not a choice, try again (a or d): ";
+		cin.get(choice, 2, '\n');
+		cin.ignore(2, '\n');
+	};
+
+	if (choice[0] == 'a') {
+		sort_ascending();
+	}
+	
+	if (choice[0] == 'd') {
+		sort_descending();
+	}
 }

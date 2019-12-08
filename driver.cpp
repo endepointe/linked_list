@@ -16,37 +16,45 @@ using namespace std;
 
 int main() {
 
-	srand(time(NULL));
+  Linked_List list;
+  int value;
+  bool q;
+  bool enterVal;
+  char choice;
 
-	Linked_List list;
-		
-	int r;
-	int pos4 = 4;
-	int pos15 = 15;
-	unsigned int ui;
-	
-	for (int i = 0; i < 100; i++) {
-		//r = rand() % 250;
-		r = i;
-		//cout << "pos " << i << ": " << r << endl;
-		list.push_front(r);
-	}
+  do {
+    value = list.readInt();
 
+    list.push_front(value);
+    //list.push_back(value);
+    //list.insert(value, list.get_length());
+
+    cout << "Do you want another num (y or n): ";
+
+    if (list.cont()) {	
+
+      do {
+
+	value = list.readInt();
+	//list.push_front(value);
+	//list.push_back(value);
+	list.insert(value, list.get_length());
 	list.print();
+	cout << "Do you want another num (y or n): ";
+        enterVal = list.cont();
+      } while (enterVal != false);
+    }
 
-	cout << "\nlength: " << list.get_length() << endl;
+    list.chooseSort();
+    cout << "Your linked list is "; 
+    list.print();
+    cout << "You have " << list.we4r();
+    cout << " prime number(s) in your list." << endl;
+    cout << "Do you want to do this again (y or n)? ";
 
-	list.insert(999, 100);
-	
-	cout << "split" << endl;
+    q = list.again();
+    
+  } while (q != false);
 
-	list.sort_descending();
-
-	cout << "head: " << &list << endl;
-
-	list.print();
-
-	cout << "primes: " << list.we4r() << endl;
-
-	return 0;
+  return 0;
 }

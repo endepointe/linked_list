@@ -35,5 +35,11 @@ class Linked_List {
 		Node * sortedMergeAsc(Node *, Node *);
 		Node * sortedMergeDesc(Node *, Node *);
 		int we4r();
+		int readInt();
+		bool cont();
+		bool again();
+		char readChar();
+		void chooseSort();	
 };
+
 #endif
