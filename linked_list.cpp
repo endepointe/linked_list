@@ -57,9 +57,7 @@ void Linked_List::print() {
 	Node *curr = head;
 
 	while (curr != nullptr) {
-	//	cout << "curr: " << curr << endl;
 		cout << curr->val << " ";
-	//	cout << "curr next: " << curr->next << endl;
 		curr = curr->next;
 	}
 	cout << endl;
@@ -438,11 +436,6 @@ int Linked_List::we4r() {
 	int primes = 0;
 
 	while (h) {
-/*
-		if ((h->val == 2) || (h->val == 3) || (h->val == 5) || (h->val == 7) || (h->val == 11)) {
-			primes++;
-		}
-*/
 
 		if (h->val > 1){
 			if ((h->val % 2 != 0) || (h->val % 3 != 0) || (h->val % 5 != 0) || (h->val % 7 != 0) || (h->val == 11)) {
