@@ -484,6 +484,8 @@ bool Linked_List::isPrime(int num) {
  * Params: none
  * Output: a number 
  *
+ * The test function calls (obviously) make the driver file longer
+ * than 20 lines of code, hope this isn't a problem :P
  * *****************************************************************/
 int Linked_List::readInt() {
 

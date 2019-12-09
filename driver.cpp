@@ -3,6 +3,20 @@
  * Author: Alvin Johns
  * Date: Dec 08, 2019
  * Desc: driver file to build a linked list from scratch
+ *
+ *
+ * 			\    /         
+ *  		         \  /
+ *                        \/
+ *                      \    /
+ *                       \  /
+ *                        \/
+ *                      \    /
+ *                       \  /
+ *                        \/
+ *
+ * The test function calls (obviously) make the driver file longer
+ * than 20 lines of code, hope this isn't a problem :P
  * ************************************************************************/
 
 
