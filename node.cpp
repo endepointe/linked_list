@@ -5,7 +5,6 @@ using namespace std;
 
 ///*
 Node::Node() {
-	cout << "node created" << endl;
 	next = nullptr;
 	val = 0;
 	//pro_count = 0;

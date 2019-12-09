@@ -35,6 +35,7 @@ class Linked_List {
 		Node * sortedMergeAsc(Node *, Node *);
 		Node * sortedMergeDesc(Node *, Node *);
 		int we4r();
+		bool isPrime(int);
 		int readInt();
 		bool cont();
 		bool again();

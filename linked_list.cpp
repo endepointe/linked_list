@@ -12,6 +12,8 @@
 #include "node.h"
 #include "linked_list.h"
 #include <string>
+#include <cctype>
+#include <cstring>
 #include <iostream>
 using namespace std;	
 
@@ -357,7 +359,6 @@ void Linked_List::splitList(Node *src, Node **fRef, Node **bRef) {
 	*fRef = src;
 	*bRef = B->next;
 	B->next = nullptr;
-
 }
 
 
@@ -420,41 +421,56 @@ Node * Linked_List::sortedMergeDesc(Node *a, Node *b) {
 	return result;
 }
 
+
 /*************************************************************************
  * Function: we4r 
  * desc: returns the number of primes in the linked list
  * params: none
  * pre: a list >= 0 exists
  * post: the node count does not change, primes are counted and returned
- * 	sieve of erathanos would not be ideal in this situation. dirty sol
  *
+ * 	quick and dirty solution
  * ***********************************************************************/
 int Linked_List::we4r() {
 
 	Node *h = head;
-	bool prime;
 	int primes = 0;
 
 	while (h) {
-
-		if (h->val > 1){
-			if ((h->val % 2 != 0) || (h->val % 3 != 0) || (h->val % 5 != 0) || (h->val % 7 != 0) || (h->val == 11)) {
-				prime = true;	
-			} else {
-				prime = false;
-			}
-		}
-
-		if (prime == true) {
+		
+		if (isPrime(h->val)) {
 			primes++;
 		}
 
 		h = h->next;
-
-		prime = false;
 	}
 
 	return primes;
+}
+
+
+/*************************************************************************
+ * Function: isPrime 
+ * desc: checks the number for primality 
+ * params: int  
+ * pre: a list >= 0 exists
+ * post: the node count does not change, returns true if num is prime
+ *
+ * 	quick and dirty solution
+ * ***********************************************************************/
+bool Linked_List::isPrime(int num) {
+	
+	if (num <= 1) {
+		return false;
+	}
+	
+	for (int i = 2; i < num; i++) {
+		if (num % i == 0) {
+			return false;
+		}
+	}
+	
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -463,27 +479,53 @@ int Linked_List::we4r() {
 //  
 /********************************************************************
  * Function: readInt 
- * Desc: gets a number as input to put into the linked list 
+ * Desc: gets a number as input to put into the linked list up to
+ * 	MAX 2 ^ 15 and MIN 2 ^ 16
  * Params: none
  * Output: a number 
+ *
  * *****************************************************************/
 int Linked_List::readInt() {
 
-	int num;
+	// can be between +2147483647 or -2147483648
+	char n[16]; // accounting for the \0 character
+	int num = 0;
+	int temp = 0;
+	bool flag = false;
+	bool neg = false;
 
-	cout << "Please enter a number: ";
+	do {
+		cout << "Please enter a number: ";
 
-	cin >> num;
+		cin.get(n, 21, '\n');
 
-	cin.ignore(100, '\n');
+		cin.ignore(21, '\n');
 
-	while (cin.fail()) {
-		cin.clear();
-		cout << "Not a number, try again." << endl;
-		cout << "Enter a number: ";
-		cin.ignore(2, '\n');
-		cin >> num;
-	};
+		if (n[0] == '-') { neg = true; }
+
+		for (int i = 0; i < strlen(n); i++) {
+		
+			if (isdigit(n[i])) {
+				num *= 10;
+				temp = n[i] - 48;
+				num += temp;
+				flag = true;
+			}
+		}
+	
+		if (neg == true) { num = -num; }
+
+		// reset for reuse	
+		//
+
+		for (int i = 0; i < 21; i++) { n[i] = ' '; }
+
+		if (flag == false) {
+			cin.clear();
+			cout << "Not a number, try again." << endl;
+			num = 0; temp = 0;
+		}
+	} while (flag == false);
 
 	return num;
 }
