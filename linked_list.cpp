@@ -1,13 +1,4 @@
-/********************************************************************
- * Filename: linked_list.cpp
- * Author: Alvin Johns
- * Date: 11/28/19
- * Desc: Class function to manipulate an object oriented linked
- * 	list.
- * Input: a node class
- * Output: a linked list of nodes
- * Sources: Geeks for Geeks for getting mergeSort working
- * *****************************************************************/
+
 
 #include "node.h"
 #include "linked_list.h"
