@@ -1,11 +1,4 @@
-/****************************************************************************
- * Filename: derived_node.h
- * Author: Alvin Johns
- * Date: Nov 28, 2019
- * Desc: class to hold a derived node object
- * Input: none
- * Output: none
- * *************************************************************************/
+
 #ifndef DERIVED_NODE_H
 #define DERIVED_NODE_H
 #include "node.h"
