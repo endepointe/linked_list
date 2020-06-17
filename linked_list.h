@@ -1,12 +1,4 @@
-/********************************************************************
- * Filename: linked_list
- * Author: Alvin Johns
- * Date: 11/28/19
- * Desc: Class function to manipulate a object oriented linked
- * 	list.
- * Input: a node class
- * Output: a linked list of nodes
- * *****************************************************************/
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
