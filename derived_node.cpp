@@ -1,11 +1,4 @@
-/****************************************************************************
- * Filename: derived_node.cpp
- * Author: Alvin Johns
- * Date: Nov 28, 2019
- * Desc: class to hold a derived node object
- * Input: none
- * Output: none
- * *************************************************************************/
+
 #include "node.h"
 #include "derived_node.h"
 #include <string>
