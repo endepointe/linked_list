@@ -1,11 +1,4 @@
-/****************************************************************************
- * Filename: node.h
- * Author: Alvin Johns
- * Date: Nov 28, 2019
- * Desc: class to hold a node object
- * Input: none
- * Output: none
- * *************************************************************************/
+
 #ifndef NODE_H
 #define NODE_H
 #include <string>
